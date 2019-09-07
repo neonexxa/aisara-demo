@@ -2,30 +2,840 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Well Safety Critical Element Prediction</title>
+    <link rel="stylesheet" href="node_modules/azry-icon/scss/style.css">
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
 	<style>
-		.newcard{
+		.body-color{
+			background-color: #EAEAEA;
+		}
+		/*.newcard{
 			padding: 5px;
 			background-color: transparent;
 			border: 3px dashed;
+		}*/
+		.nav-item, .home-icon{
+			height: 35px;
 		}
+		/*.sub-nav{
+			height: 90px;
+		}*/
+		.main-nav-tab{
+			background-image: linear-gradient(to right, #6299B0, #B0CBDD);
+			height: 35px;
+			box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,.15);
+			/*background-color: #9CBFD1!important;*/
+		}
+		.sub-nav-tab{
+			background-image: linear-gradient(to right, #B0CBDD, #FEFEFE);
+			/*background-color: #9CBFD1!important;*/
+			height: 90px;
+			box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,.15);
+		}
+		.explorer-sidebar{
+			/*background-image: linear-gradient(to right, #B0CBDD, #FEFEFE);*/
+			background-color: #c1d1dc!important;
+			
+		}
+		.explorer-sidebar-left{
+			overflow:scroll;
+		}
+		.sub-nav-tab>.main-row{
+			margin:0px;
+			height: inherit;	
+		}
+		.home-icon{
+			padding:10px;
+		}
+		.home-nav-item-btn{
+			background-color: #B3CDE0;
+			border: none;
+			width: 100px;
+			height: 115px;
+			margin:auto;
+			cursor: pointer;
+		}
+		.home-nav-item-btn>.card-body{
+			width: 100px;
+			height: 90px;
+			display: flex;
+			justify-content: center;
+			align-items: center;	
+		}
+		.home-nav-item-btn>.card-body>i{
+			font-size: 65px;
+			background-color: transparent;
+			color: #032A59;
+		}
+		.sub-nav-item{
+			padding: 1px;
+		}
+		.sub-nav-item-btn{
+			background-color: #B3CDE0;
+			border: none;
+			width: 45px;
+			height: 45px;
+			margin:auto;
+			cursor: pointer;
+		}
+		.sub-nav-item-btn>.card-body{
+			width: 45px;
+			height: 45px;
+			display: flex;
+			justify-content: center;
+			align-items: center;	
+		}
+		.sub-nav-item-btn>.card-body>i{
+			font-size: 20px;
+			background-color: transparent;
+			color: #032A59;
+		}
+		.sub-nav-item-company-logo{
+			background-color: #B3CDE0;
+			border: none;
+			width: -webkit-fill-available;
+			height: 70px;
+			margin:auto;
+			cursor: pointer;
+		}
+		.sub-nav-item-company-logo>.card-body{
+			width: -webkit-fill-available;
+			padding: 5px;
+			height: 60px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.sub-nav-head-font{
+			font-size: 11px;
+			width: 100%;
+		}
+		.sub-nav-item-font{
+			font-size: 9px;
+		}
+		.nav-link{
+			font-size: 12px;
+			font-weight: 600;
+			height: inherit;
+			color:white!important;
+		}
+		.nav-link.active{
+			color: black!important;
+			border-color: transparent!important;
+			background-color: transparent!important;
+    		border-bottom: 5px solid black!important;	
+		}
+		.side-nav-head-font{
+			font-size: 12px;
+		}
+		.side-nav-content-font{
+			font-size: 12px;
+		}
+		.explorer-sidebar{
+			width: 190px;padding: 10px;
+		}
+		.control-panel-sidebar{
+			width: 190px;padding: 10px;
+		}
+		.explore-data-content:hover{
+			background-color: rgba(100,151,177,0.5);
+		}
+		.explore-data-content.selected{
+			background-color: rgba(100,151,177,0.9);
+		}
+		.projectlist_item{
+			padding-left: 30px;
+		}
+
+
+		/*modal style*/
+
+
+		.modal-content{
+			border: none!important;
+		}
+		.modal-header{
+			height:35px;
+			padding: 10px;
+			background-image: linear-gradient(to right, #063B6D, #6295AF);
+			border: none;
+			border-top-right-radius:4px;
+			border-top-left-radius:4px;
+		}
+		.modal-header>.modal-title{
+			font-size: 12px!important;
+			font-weight: 600!important;
+			color:white!important;
+		}
+		.modal-body{
+			
+			background-image: linear-gradient(to bottom right, #6797B0, #B1CCDF);
+			border-bottom-right-radius: 4px;
+			border-bottom-left-radius: 4px;
+		}
+		
+		/*#9CBFD1*/
+		/*common button*/
+		.btn-right-toolkit-tab{
+			color:white;
+			background-color:#4F8DB6;
+			border-color:#4F8DB6;
+		}
+		.btn-right-toolkit-tab.active{
+			color:white;
+			background-color:#035B96;
+			border-color:#035B96;
+		}
+		
+		/*#projTable2 { 
+		    overflow-x:scroll;
+		    overflow-y:visible;
+		}*/
+	.grid-container {
+	  display: grid; /* This is a (hacky) way to make the .grid element size to fit its content */
+	  overflow: auto;
+	  height: 150px;
+      width: -webkit-fill-available;
+	}
+	.grid {
+	  display: flex;
+	  flex-wrap: nowrap;
+	  font-size: 10px;
+	}
+	.grid-col {
+	  width: 150px;
+	  /*min-width: 150px;*/
+	}
+
+	.grid-item--header {
+	  height: 100px;
+	  min-height: 25px;
+	  position: sticky;
+	  position: -webkit-sticky;
+	  background: white;
+	  top: 0;
+	}
+
+	.grid-col--fixed-left {
+      width: 43px;
+	  position: sticky;
+	  left: 0;
+	  z-index: 1000;
+	  background: white;
+	}
+	.grid-col--fixed-right {
+      width: 43px;
+	  position: sticky;
+	  right: 0;
+	  z-index: 1000;
+	  background: white;
+	}
+	.grid-col--fixed-right > .grid-item--header{
+	    padding: 5px;
+	    background-color: #B3CDE0;
+	}
+	.grid-item {
+	  height: 25px;
+	  border: 1px solid gray;
+	}
+	::-webkit-scrollbar { 
+	    display: none; 
+	}
+	
+	/*chart*/
+	.sliderlist {
+		border: solid 1px #035B96;
+    	background-color: #EFEFEF;
+	}
+	.invg-font{
+		font-size: x-small;
+	}
+	.traces_filter{
+		font-size: xx-small;
+	}
+	.graphshift_preloader{
+        position: fixed;
+        display: block;
+		overflow: auto;
+        width: 57%;
+        height: 70%;
+        z-index: 9999;
+        background: url('storagebox/cyber.gif') 50% 50% no-repeat rgb(249,249,249);
+        opacity: .8;
+    }
+
+	/*adjustment*/
 	</style>
   </head>
-  <body class="bg-secondary" style="padding-top:2vh">
+  <body class="body-color systembody" style="width: 100vw;height: 100vh;">
+
+  	<!-- style="padding-top:2vh" -->
     <!-- <h1>Hello World!</h1>
     We are using node <script>document.write(process.versions.node)</script>,
     Chrome <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>. -->
-    <div class="container-fluid">
-    	<div class="row">
+	<div id="aisaraguestt">
+		<form action="http://localhost:8000/api/auth/login"	method="POST" id="login-form">
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Email address</label>
+		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+		    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">Password</label>
+		    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+		  </div>
+		  <div class="form-group form-check">
+		    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+		    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+    <div id="aisaraauthenticated">
+    	<ul class="nav main-nav-tab" id="myTab" role="tablist">
+    	  <!-- <li class="home-icon"><i class="az-home"></i></li> -->
+		  <!-- <li class="nav-item">
+		    <a class="nav-link active"><i class="az-home"></i></a>
+		  </li> -->
+		  <li class="nav-item">
+		    <a class="nav-link active" id="aisaratab-tab" data-toggle="tab" href="#aisaratab" role="tab" aria-controls="aisaratab" aria-selected="true">AiSara</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Neural Network</a>
+		  </li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		  <!-- <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">home</div> -->
+		  <div class="tab-pane fade show active" id="aisaratab" role="tabpanel" aria-labelledby="aisaratab-tab">
+			<div class="container-fluid sub-nav sub-nav-tab" style="padding: 0px">
+				<div class="row main-row">
+					<div style="width: 132px;padding: 1px">
+						<div class="row" style="margin:0px">
+							<span class="text-center sub-nav-head-font">Dataset</span>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-6 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn sub-nav-item-btn-newdataset" id="new_dataset_button">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">New Dataset</span>
+							</div>
+							<div class="col-6 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn sub-nav-item-btn-dataset">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">My Dataset</span>
+							</div>
+						</div>
+					</div>
+					<div style="width: 2px;background-color: black;margin: 5px 0"></div>
+					<div style="width: 132px;padding: 1px">
+						<div class="row" style="margin:0px">
+							<span class="text-center sub-nav-head-font">Design</span>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-6 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">Learn</span>
+							</div>
+							<div class="col-6 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn sub-nav-item-btn-blindtest">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">Blindtest</span>
+							</div>
+						</div>
+					</div>
+					<div style="width: 2px;background-color: black;margin: 5px 0"></div>
+					<div style="width: 198px;padding: 1px">
+						<div class="row" style="margin:0px">
+							<span class="text-center sub-nav-head-font">Predict</span>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-4 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">Query</span>
+							</div>
+							<div class="col-4 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn sub-nav-item-btn-3d">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">3D</span>
+							</div>
+							<div class="col-4 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">Sensitivity</span>
+							</div>
+						</div>
+					</div>
+
+					<div style="width: 2px;background-color: black;margin: 5px 0"></div>
+					<div style="width: 132px;padding: 1px">
+						<div class="row" style="margin:0px">
+							<span class="text-center sub-nav-head-font">Export</span>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-6 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">CSV</span>
+							</div>
+							<div class="col-6 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">XLS</span>
+							</div>
+						</div>
+					</div>
+					<div style="width: 2px;background-color: black;margin: 5px 0"></div>
+					<div style="width: 264px;padding: 1px">
+						<div class="row" style="margin:0px">
+							<span class="text-center sub-nav-head-font">Support</span>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-3 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">Tutorial</span>
+							</div>
+							<div class="col-3 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">Help</span>
+							</div>
+							<div class="col-3 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">Bug Report</span>
+							</div>
+							<div class="col-3 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-btn">
+								  <div class="card-body">
+								    <i class="az-file-text-o"></i>
+								  </div>
+								</div>
+								<span class="sub-nav-item-font">Contact Us</span>
+							</div>
+						</div>
+					</div>
+					<div style="width: 300px;padding: 1px">
+						<div class="row" style="height: 10px"></div>
+						<div class="row" style="margin:0px;">
+							
+							<div class="col-12 sub-nav-item text-center">
+								<div class="card shadow sub-nav-item-company-logo">
+								  <div class="card-body">
+								  	<!-- img -->
+								  	
+								  	<img src="https://i.dlpng.com/static/png/413496_thumb.png" alt="" style="height: inherit;">
+								  	<!-- <img src="storagebox/petronas-carigali.png" alt="" style="width: inherit;height: inherit;"> -->
+								    <!-- <i class="az-file-text-o"></i> -->
+								  </div>
+								</div>
+								<!-- <span class="sub-nav-item-font">Contact Us</span> -->
+							</div>
+						</div>
+					</div>
+					<!-- <div style="width: 2px;background-color: black;margin: 5px 0"></div> -->
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row content-row">
+					<div class="home-viewbar" style="margin:auto;margin-top: 50px">
+						<!-- <div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font">Dataset Explorer</span>
+						</div> -->
+						<div class="row" style="margin:0px;">
+							<h4 style="color:#035B96">Next Generation Artificaial Intelligence</h4>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="card shadow home-nav-item-btn text-center">
+							  <div class="card-body">
+							    <i class="az-file-text-o"></i>
+							  </div>
+							  <span class="sub-nav-item-font" style="margin:5px">CSV</span>
+							</div>
+							<div class="card shadow home-nav-item-btn text-center">
+							  <div class="card-body">
+							    <i class="az-file-text-o"></i>
+							  </div>
+							  <span class="sub-nav-item-font" style="margin:5px">CSV</span>
+							</div>
+							<div class="card shadow home-nav-item-btn text-center">
+							  <div class="card-body">
+							    <i class="az-file-text-o"></i>
+							  </div>
+							  <span class="sub-nav-item-font" style="margin:5px">CSV</span>
+							</div>
+						</div>
+						<hr>
+						<div class="row" style="margin:0px;">
+							<span class="sub-nav-item-font" style="margin:5px">Recent</span>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-md-6 sub-nav-item-font">Name</div>
+							<div class="col-md-3 sub-nav-item-font">Source</div>
+							<div class="col-md-3 sub-nav-item-font">Last Modified</div>
+						</div>
+						<hr style="margin:0px">
+						<div class="row" style="margin:0px;">
+							<div class="col-md-6 sub-nav-item-font">Name</div>
+							<div class="col-md-3 sub-nav-item-font">Source</div>
+							<div class="col-md-3 sub-nav-item-font">Last Modified</div>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-md-6 sub-nav-item-font">Name</div>
+							<div class="col-md-3 sub-nav-item-font">Source</div>
+							<div class="col-md-3 sub-nav-item-font">Last Modified</div>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-md-6 sub-nav-item-font">Name</div>
+							<div class="col-md-3 sub-nav-item-font">Source</div>
+							<div class="col-md-3 sub-nav-item-font">Last Modified</div>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-md-6 sub-nav-item-font">Name</div>
+							<div class="col-md-3 sub-nav-item-font">Source</div>
+							<div class="col-md-3 sub-nav-item-font">Last Modified</div>
+						</div>
+						<div class="row" style="margin:0px;">
+							<div class="col-md-6 sub-nav-item-font">Name</div>
+							<div class="col-md-3 sub-nav-item-font">Source</div>
+							<div class="col-md-3 sub-nav-item-font">Last Modified</div>
+						</div>
+
+					</div>
+					<div class="explorer-sidebar explorer-sidebar-left">
+						<div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font">Dataset Explorer</span>
+						</div>
+						<div class="row side-nav-content-data-div" style="margin:0px;">
+						</div>
+						<div class="row" style="margin:0px;">
+						</div>
+					</div>
+					<div class="content-viewbar" style="display: none">
+						<div class="row content-viewbar-header" style="margin:0px;padding: 10px;height:38px;background-color: #F6F6F6;">
+							<input type="hidden" id="content-viewbar-viewtype">
+							<input type="hidden" id="content-viewbar-viewitem">
+							<span class="text-center side-nav-head-font"><strong id="content-viewbar-top-header-label"></strong></span>
+						</div>
+						<div class="content-viewbar-item content-viewbar-datasheetview">
+							<div class="row" style="margin:0px;padding: 10px;">
+								<table class="table table-bordered text-center" id="projTable" style="font-size: 10px">
+									<thead>
+			                            <tr>
+			                            	<td style="padding: 5px;background-color: white" width="3%"></td>
+			                            	<td style="padding: 5px;background-color: white" width="90%">input</td>
+			                            	<td style="padding: 5px;background-color: #B3CDE0" width="7%">output</td>
+			                            </tr>
+			                        </thead>
+								</table>
+							</div>
+							<div class="row" style="margin:0px;padding: 10px;" id="content_view_bar_table">
+								
+							</div>
+						</div>
+						<div class="content-viewbar-item content-viewbar-chartview">
+							<div class="graphshift_preloader" style="display: none"></div>
+							<div class="row" style="margin:0px;" id="content_view_bar_chart">
+								<div id="plotly-div" class="responsive-plot"></div>
+							</div>
+						</div>
+						<!-- <div class="row" style="margin:0px;padding: 10px;">
+							<table class="table table-bordered text-center" id="projTable" style="font-size: 10px">
+								<thead>
+		                            <tr>
+		                            	<td style="padding: 5px;background-color: white" width="3%"></td>
+		                            	<td style="padding: 5px;background-color: white" width="90%">input</td>
+		                            	<td style="padding: 5px;background-color: #B3CDE0" width="7%">output</td>
+		                            </tr>
+		                        </thead>
+							</table>
+						</div>
+						<div class="row" style="margin:0px;padding: 10px;">
+							<table class="table table-bordered text-center" id="projTable2" style="font-size: 10px">
+								<tbody>
+		                        	<tr>
+		                            	<td style="position: fixed;padding: 5px;background-color: white" width="3%"></td>
+		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
+		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
+		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
+		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
+		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
+		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
+		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
+		                            	<td style="padding: 5px;background-color: #B3CDE0" width="7%">output</td>
+		                            </tr>
+		                        </tbody>
+							</table>
+						</div> -->
+						
+					</div>
+					<div class="explorer-sidebar explorer-sidebar-right explorer-sidebar-right-maintoolkit" style="display: none">
+						<div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font"><strong>Main Toolkit</strong></span>
+						</div>
+						<div class="row" style="margin:0px">
+							<div class="btn-group" role="group" style="width: -webkit-fill-available;">
+							  <button type="button" class="btn btn-right-toolkit-tab active" style="font-size: 10px">Dataset</button>
+							  <button type="button" class="btn btn-right-toolkit-tab" style="font-size: 10px">Project</button>
+							</div>
+						</div>
+						<div class="side-nave-content-projecttab">
+							<input type="hidden" id="newproject_datasheetid">
+							<br>
+							<div class="row" style="margin:0px">
+								<span class="text-center side-nav-head-font">Project Name</span>
+							</div>
+							<div class="row" style="margin:0px">
+								<input style="font-size: 11px;width: -webkit-fill-available;border: solid 2px #315E89;border-radius: 8px;" type="text" value="A New Project" id="newproject_projectname" name="newproject_projectname">
+							</div>
+							<br>
+							<div class="row" style="margin:0px">
+								<span class="text-center side-nav-head-font">Train / Blindtest split</span>
+							</div>
+							<div class="row" style="margin:0px">
+								<select name="newproject_bt_type" id="newproject_bt_type" style="font-size: 11px;width: -webkit-fill-available;border: solid 2px #315E89;border-radius: 8px;">
+				                    <option value="random" selected="">Random</option>
+				                    <option value="continuous">Continueous</option>
+				                </select>
+							</div>
+							<div class="row" style="margin:0px">
+								<div class="col-md-8" style="padding: 0px">
+									<span style="font-size: 11px"> Train percentage %: </span>
+								</div>
+								<div class="col-md-3" style="padding: 0px">
+									<input style="font-size: 11px;width: inherit;border: solid 2px #315E89;border-radius: 15%;" type="number" min="0" max="100" step="0.01" value="50" name="newproject_bt_split" id="newproject_bt_split">
+								</div>
+								<div class="col-md-1"></div>
+							</div>
+							<br>
+							<!-- <div class="row" style="margin:0px">
+								<span class="text-center side-nav-head-font">Output</span>
+							</div>
+							<div class="row" style="margin:0px">
+								<input style="font-size: 11px;width: -webkit-fill-available;border: solid 2px #315E89;border-radius: 8px;" type="text" >
+							</div> -->
+							<div class="row" style="margin:0px;">
+								<div class="col-md-12" style="padding:2px;">
+									<button class="btn btn-block" type="button" style="color:white;    border-radius: 10px;font-size: 10px;background-image: linear-gradient(to bottom, #03528B, #032654);" id="projectnew_btnstartproject">Start project</button>
+								</div>
+							</div>
+						</div>
+						<!-- for i dont know -->
+						<!--  
+						<div class="side-nave-content-projecttab">
+							<br>
+							<div class="row" style="margin:0px">
+								<span class="text-center side-nav-head-font">Add More Data</span>
+							</div>
+							<div class="row control-content-data-div" style="margin:0px;">
+								<div class="row" style="margin:0px">
+									<div class="col-md-8" style="padding: 0px">
+									<span style="font-size: 11px"> Input column(s): </span>
+									</div>
+									<div class="col-md-3" style="padding: 0px">
+										<input style="font-size: 11px;width: inherit;border: solid 2px #315E89;border-radius: 15%;" type="number" >
+									</div>
+									<div class="col-md-1"></div>
+								</div>
+								
+								<div class="row" style="margin:0px">
+									<div class="col-md-8" style="padding: 0px">
+										<span style="font-size: 11px"> Output column(s): </span>
+									</div>
+									<div class="col-md-3" style="padding: 0px">
+										<input style="font-size: 11px;width: inherit;border: solid 2px #315E89;border-radius: 15%;" type="number" >
+									</div>
+									<div class="col-md-1"></div>
+								</div>
+								<div class="row" style="margin:0px">
+									<div class="col-md-8" style="padding: 0px">
+										<span style="font-size: 11px"> Data row(s): </span>
+									</div>
+									<div class="col-md-3" style="padding: 0px">
+										<input style="font-size: 11px;width: inherit;border: solid 2px #315E89;border-radius: 15%;" type="number" >
+									</div>
+									<div class="col-md-1"></div>
+								</div>
+							</div>
+							<br>
+							<div class="row" style="margin:0px">
+								<span class="text-center side-nav-head-font">Remove Data</span>
+							</div>
+							<div class="row" style="margin:0px;">
+								<div class="col-md-12" style="padding:2px;">
+									<button class="btn btn-block" style="color:white;    border-radius: 10px;font-size: 10px;background-image: linear-gradient(to bottom, #03528B, #032654);">Remove selected input</button>
+								</div>
+							</div> 
+						</div> -->
+						
+						
+					</div>
+					<div class="explorer-sidebar explorer-sidebar-right explorer-sidebar-right-3dtoolkit" style="display: none">
+						<div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font"><strong>3d Toolkit</strong></span>
+						</div>
+						<div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font">Prediction opacity</span>
+
+							<!-- <div class="btn-group" role="group" style="width: -webkit-fill-available;">
+							  <button type="button" class="btn btn-right-toolkit-tab active" style="font-size: 10px">Dataset</button>
+							  <button type="button" class="btn btn-right-toolkit-tab" style="font-size: 10px">Project</button>
+							</div> -->
+						</div>
+						<div class="side-nav-head-font actualopacitysliderdom">
+							<input id="rangeactual" class="no-border" type="range" min="0" max="1" step="0.001" style="width:-webkit-fill-available;"/>
+						</div>
+						<div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font">Axis Options</span>
+						</div>
+						<div class="row" style="margin:0px">
+							<div class="btn-group" role="group" style="width: -webkit-fill-available;">
+								<div class="btn-group" role="group" style="width: 50%">
+								    <button id="btnGroupDrop1" type="button" class="btn btn-right-toolkit-tab dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: 0px;padding-bottom: 0px;">
+								      X
+								    </button>
+								    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+								      <a class="dropdown-item" href="#">x 1</a>
+								      <a class="dropdown-item" href="#">x 2</a>
+								    </div>
+							  	</div>
+							  	<div class="btn-group" role="group" style="width: 50%">
+								    <button id="btnGroupDrop2" type="button" class="btn btn-right-toolkit-tab dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: 0px;padding-bottom: 0px;">
+								      Y
+								    </button>
+								    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+								      <a class="dropdown-item" href="#">y 1</a>
+								      <a class="dropdown-item" href="#">y 2</a>
+								    </div>
+							  	</div>
+							  <!-- <button type="button" class="btn btn-right-toolkit-tab active" style="font-size: 10px">Dataset</button>
+							  <button type="button" class="btn btn-right-toolkit-tab" style="font-size: 10px">Project</button> -->
+							</div>
+						</div>
+						<div class="row" style="margin:0px">
+							<div class="col">
+								<p class="m-0 invg-font"><strong>Legends</strong></p>
+								<div class="traces_filter">
+									<div class="custom-control custom-checkbox">
+									    <input type="checkbox" class="custom-control-input" id="trace_filter_surface_prediction" data-id="trace_filter_surface_prediction" onchange="trace_filter_toggle()" checked>
+									    <label class="custom-control-label" for="trace_filter_surface_prediction">Surface Prediction</label>
+									</div>
+									<div class="custom-control custom-checkbox">
+									    <input type="checkbox" class="custom-control-input" id="trace_filter_scatter_actual" data-id="trace_filter_scatter_actual" onchange="trace_filter_toggle()" checked>
+									    <label class="custom-control-label" for="trace_filter_scatter_actual">Scatter Actual</label>
+									</div>
+									<div class="custom-control custom-checkbox">
+									    <input type="checkbox" class="custom-control-input" id="trace_filter_scatter_validation" data-id="trace_filter_scatter_validation" onchange="trace_filter_toggle()" checked>
+									    <label class="custom-control-label" for="trace_filter_scatter_validation">Scatter Validation</label>
+									</div>
+									
+									<div class="custom-control custom-checkbox">
+									    <input type="checkbox" class="custom-control-input" id="trace_filter_target" data-id="trace_filter_target" onchange="trace_filter_toggle()" checked>
+									    <label class="custom-control-label" for="trace_filter_target">Target</label>
+									</div>
+								</div>
+							</div>
+							
+							<!-- <div class="btn-group" role="group" style="width: -webkit-fill-available;">
+							  <button type="button" class="btn btn-right-toolkit-tab active" style="font-size: 10px">Dataset</button>
+							  <button type="button" class="btn btn-right-toolkit-tab" style="font-size: 10px">Project</button>
+							</div> -->
+						</div>
+						<div class="side-nav-content-3d-slider">
+							<br>
+							<div class="row" style="margin:0px">
+								<span class="text-center side-nav-head-font">Predict Options</span>
+							</div>
+							<div class="side-nav-head-font predictsliderdom">
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		  </div>
+		  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"><script src="footer_text.js"></script></div>
+		</div>
+    	<!-- <div class="row">
     		<div class="col-md-12">
     			<div class="card newcard justify-content-center align-items-center" style="height:10vh;">
     				ADD DATASET
     			</div>
     		</div>
-    	</div>
+    	</div> -->
     </div>
+	<div class="modal" tabindex="-1" role="dialog" id="new_dataset_modal">
+	  <div class="modal-dialog modal-sm" style="margin: 18rem auto" role="document">
+	    <div class="modal-content">
+	      <form action="" id="formnewsheet">
+	        <div class="modal-header">
+	        	<h5 class="modal-title">New Dataset</h5>
+	          	<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: inherit;padding:0px 0px 2px 0px;margin:0px;height: 16px;width: 16px;background-color: #FF0000;border-radius:50%;border:solid #FF0000;line-height: 0px!important;text-shadow: none">&times;</button>
+	        </div>
+	        <div class="modal-body">
+				<input type="file" id="file-upload-btn-local" name="sheet" class="file-upload-btn-local" >
+				<button type="submit" class="btn btn-primary" id="new_datasheet_upload_button">Upload</button>
+	        </div>
+	        <input type="hidden" name="uploadtype" id="uploadtype">
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js" integrity="sha256-VeNaFBVDhoX3H+gJ37DpT/nTuZTdjYro9yBruHjVmoQ=" crossorigin="anonymous"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <script src="modals/new_dataset.js"></script> -->
+    <script src="scripts/months.js"></script>
+    <!-- <script src="scripts/env.js"></script> -->
+    <script src="scripts/domwriter.js"></script>
+    <script src="scripts/apifunc.js"></script>
+    <script src="scripts/item_creation.js"></script>
+    <script src="scripts/refresher.js"></script>
+    <script src="scripts/uifix.js"></script>
+    <script src="scripts/uisetting.js"></script>
     <script src="scripts/scripts.js"></script>
+    <script src="scripts/mainaction.js"></script>
+    <script src="scripts/sidenaveventtrigger.js"></script>
+    <script src="scripts/subnaveventtrigger.js"></script>
+    <script src="scripts/drawchart.js"></script>
   </body>
 </html> 
