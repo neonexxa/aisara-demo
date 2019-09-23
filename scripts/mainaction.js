@@ -84,3 +84,40 @@ function showprojectviewblindtest(project) {
 	processdataajax("blindtest",project.id,1);
 	writetitleforcontentviewbar(project.title + " > " + "Blindtest");
 }
+function showprojectviewquery(project) {
+	// body...
+	console.log(project.title);
+	// body...
+	window.alldata              = '';// global
+    window.allimpact            = '';// global
+    window.alldataactual        = '';// global
+    window.alldatavalidation    = '';// global
+    window.opacityactual        = '';// global
+    window.opacityvalidation    = '';// global
+    window.allerroractual       = '';// global
+    window.graphusedparam     	= [];// global for trace filter use    
+	window.filterswitch         = false;// global
+    window.filters              = false;//global
+    window.actualfilters        = '';
+    window.xaxis_setting        = preloadwindowdata_var['x'][0];
+    window.yaxis_setting        = preloadwindowdata_var['y'][0];
+    window.lol                  = 0;
+    window.dataloaded           = 0;
+    window.plugin               = '';
+    window.tracenumber          = 3;
+    window.threeDsurfacecam = '';
+	window.prevtrace_to_delete = [];
+	window.trace_to_delete = [];
+	// end data declaration
+	// begin ajax call for data prep
+	processdataajaxquery("actual",project.id,1);
+	processdataajaxquery("validation",project.id,1);
+	// end ajax call for data prep
+	console.log(project.title);
+	writetitleforcontentviewbar(project.title + " > " + "Query");
+	console.log("Done setting tittle");
+	// // side panel function prep
+	
+	// temporary comment adjust
+    // end temporary
+}

@@ -5,6 +5,7 @@
     <title>Well Safety Critical Element Prediction</title>
     <link rel="stylesheet" href="node_modules/azry-icon/scss/style.css">
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" />
 	<style>
 		.body-color{
 			background-color: #EAEAEA;
@@ -78,6 +79,9 @@
 			margin:auto;
 			cursor: pointer;
 		}
+		.sub-nav-item-btn-disabled{
+			background-color: grey!important;
+		}
 		.sub-nav-item-btn>.card-body{
 			width: 45px;
 			height: 45px;
@@ -89,6 +93,9 @@
 			font-size: 20px;
 			background-color: transparent;
 			color: #032A59;
+		}
+		.sub-nav-item-btn-disabled>.card-body>i{
+			color: #555!important;
 		}
 		.sub-nav-item-company-logo{
 			background-color: #B3CDE0;
@@ -194,7 +201,13 @@
 	.grid-container {
 	  display: grid; /* This is a (hacky) way to make the .grid element size to fit its content */
 	  overflow: auto;
-	  height: 150px;
+	  /*height: 150px;*/ /* disabled temporary */
+      width: -webkit-fill-available;
+	}
+	.grid-container-fixedheight {
+	  display: grid; /* This is a (hacky) way to make the .grid element size to fit its content */
+	  overflow: auto;
+	  height: 280px; /* disabled temporary */
       width: -webkit-fill-available;
 	}
 	.grid {
@@ -205,6 +218,8 @@
 	.grid-col {
 	  width: 150px;
 	  /*min-width: 150px;*/
+	  background: white;
+	  color: #102A54;
 	}
 
 	.grid-item--header {
@@ -224,11 +239,11 @@
 	  background: white;
 	}
 	.grid-col--fixed-right {
-      width: 43px;
+      width: 125px;
 	  position: sticky;
 	  right: 0;
 	  z-index: 1000;
-	  background: white;
+	  background: #B1CDDE;
 	}
 	.grid-col--fixed-right > .grid-item--header{
 	    padding: 5px;
@@ -364,7 +379,7 @@
 						</div>
 						<div class="row" style="margin:0px;">
 							<div class="col-4 sub-nav-item text-center">
-								<div class="card shadow sub-nav-item-btn">
+								<div class="card shadow sub-nav-item-btn sub-nav-item-btn-query">
 								  <div class="card-body">
 								    <i class="az-file-text-o"></i>
 								  </div>
@@ -556,7 +571,7 @@
 							<input type="hidden" id="content-viewbar-viewitem">
 							<span class="text-center side-nav-head-font"><strong id="content-viewbar-top-header-label"></strong></span>
 						</div>
-						<div class="content-viewbar-item content-viewbar-datasheetview">
+						<div class="content-viewbar-item content-viewbar-datasheetview" style="display: none">
 							<div class="row" style="margin:0px;padding: 10px;">
 								<table class="table table-bordered text-center" id="projTable" style="font-size: 10px">
 									<thead>
@@ -572,40 +587,28 @@
 								
 							</div>
 						</div>
-						<div class="content-viewbar-item content-viewbar-chartview">
+						<div class="content-viewbar-item content-viewbar-chartview" style="display: none">
 							<div class="graphshift_preloader" style="display: none"></div>
 							<div class="row" style="margin:0px;" id="content_view_bar_chart">
 								<div id="plotly-div" class="responsive-plot"></div>
 							</div>
 						</div>
-						<!-- <div class="row" style="margin:0px;padding: 10px;">
-							<table class="table table-bordered text-center" id="projTable" style="font-size: 10px">
-								<thead>
-		                            <tr>
-		                            	<td style="padding: 5px;background-color: white" width="3%"></td>
-		                            	<td style="padding: 5px;background-color: white" width="90%">input</td>
-		                            	<td style="padding: 5px;background-color: #B3CDE0" width="7%">output</td>
-		                            </tr>
-		                        </thead>
-							</table>
+						<div class="content-viewbar-item content-viewbar-queryview" style="display: none">
+							<div class="row" style="margin:0px;padding: 10px 10px 0px 10px;">
+								<table class="table table-bordered text-center" id="queryTable" style="font-size: 10px;margin:0px">
+									<thead>
+			                            <tr>
+			                            	<td style="padding: 5px;background-color: white" width="3%"></td>
+			                            	<td style="padding: 5px;background-color: white" width="70%" id="queryinputheader">input</td>
+			                            	<td style="padding: 5px;background-color: #B3CDE0" width="27%">output</td>
+			                            </tr>
+			                        </thead>
+								</table>
+							</div>
+							<div class="row" style="margin:0px;padding: 0px 10px 10px 10px;" id="content_view_bar_table_query">
+								table here
+							</div>
 						</div>
-						<div class="row" style="margin:0px;padding: 10px;">
-							<table class="table table-bordered text-center" id="projTable2" style="font-size: 10px">
-								<tbody>
-		                        	<tr>
-		                            	<td style="position: fixed;padding: 5px;background-color: white" width="3%"></td>
-		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
-		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
-		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
-		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
-		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
-		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
-		                            	<td style="padding: 5px;background-color: white" width="30%">input</td>
-		                            	<td style="padding: 5px;background-color: #B3CDE0" width="7%">output</td>
-		                            </tr>
-		                        </tbody>
-							</table>
-						</div> -->
 						
 					</div>
 					<div class="explorer-sidebar explorer-sidebar-right explorer-sidebar-right-maintoolkit" style="display: none">
@@ -791,6 +794,33 @@
 
 						</div>
 					</div>
+					<div class="explorer-sidebar explorer-sidebar-right explorer-sidebar-right-querytoolkit" style="display: none">
+						<div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font"><strong>Query Toolkit</strong></span>
+						</div>
+						<div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font">Type</span>
+						</div>
+						<div class="row" style="margin:0px">
+							<div class="btn-group" role="group" style="width: -webkit-fill-available;">
+							  <button type="button" class="btn btn-right-toolkit-tab active" style="font-size: 10px" onclick="queryswitchtab('single')">Single</button>
+							  <button type="button" class="btn btn-right-toolkit-tab" style="font-size: 10px" onclick="queryswitchtab('combo')">Combo</button>
+							</div>
+						</div>
+						<div class="side-nav-content-query-slider">
+							<br>
+							<div class="row" style="margin:0px">
+								<span class="text-center side-nav-head-font">Predict Options</span>
+							</div>
+							<div class="side-nav-head-font predictsliderdom-query">
+
+							</div>
+							<br>
+							<div class="row" style="margin:0px">
+								<button type="button" class="btn btn-primary btn-block" style="font-size: 10px" onclick="executequery()">Execute</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		  </div>
@@ -821,8 +851,11 @@
 	    </div>
 	  </div>
 	</div>
+	<script src="scripts/generalfunction.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js" integrity="sha256-VeNaFBVDhoX3H+gJ37DpT/nTuZTdjYro9yBruHjVmoQ=" crossorigin="anonymous"></script>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="scripts/scripts.js"></script>
+	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <!-- <script src="modals/new_dataset.js"></script> -->
     <script src="scripts/months.js"></script>
     <!-- <script src="scripts/env.js"></script> -->
@@ -832,7 +865,7 @@
     <script src="scripts/refresher.js"></script>
     <script src="scripts/uifix.js"></script>
     <script src="scripts/uisetting.js"></script>
-    <script src="scripts/scripts.js"></script>
+    
     <script src="scripts/mainaction.js"></script>
     <script src="scripts/sidenaveventtrigger.js"></script>
     <script src="scripts/subnaveventtrigger.js"></script>

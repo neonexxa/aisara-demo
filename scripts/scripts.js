@@ -1,4 +1,5 @@
 window.$ = window.jQuery = require('jquery'); // not sure if you need this at all
+// require('jquery-ui-dist/jquery-ui');
 window.Bootstrap = require('bootstrap');
 require('rangeslider.js');
 window.currentview = "Homeview";

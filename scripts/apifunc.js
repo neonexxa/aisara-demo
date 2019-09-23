@@ -224,10 +224,10 @@ function getprojectinfo(token,user,project_id,project_page) {
             // }
             // console.log(response.blocksize["Y"]);
             // console.log(response.varlist);
-            console.log(response.var['x'][0]);
+            // console.log(response.var['x'][0]);
             console.log("Setting DOM for slider");
-            
             createsliderondom();
+            console.log("Showing project info for : ",project_page);
             if (project_page == "3d") {
               $(".explorer-sidebar-right.explorer-sidebar-right-3dtoolkit").show();
               showprojectview3d(preloadwindowdata_project);  
@@ -239,6 +239,39 @@ function getprojectinfo(token,user,project_id,project_page) {
             $(".content-viewbar").show();
             // showprojectviewhome(response.data);
             // $(".content-viewbar").show();
+          }  
+          
+        },
+        error: function(error) {
+          
+          localStorage.removeItem('application_auth_token');
+          localStorage.removeItem('application_auth_expiry');
+          $('#aisaraauthenticated').hide();
+          initializing_guest_ui();
+          $('#aisaraguestt').show();
+            // alert(xhr.responseText);
+        }
+      });
+      break;
+    case "query":
+      $.ajax({
+        url: 'http://localhost:8000/api/getprojectoutcome/'+project_id,
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
+        method: 'GET',
+        contentType: 'application/json',
+        success: function(response){
+          if (response.success) {
+            window.preloadwindowdata_blocksize = response.blocksize;
+            window.preloadwindowdata_filteredvarlist = response.filteredvarlist;
+            window.preloadwindowdata_project = response.project;
+            window.preloadwindowdata_success = response.success;
+            window.preloadwindowdata_var = response.var;
+            window.preloadwindowdata_varlist = response.varlist;
+            console.log("Project responses: ",project_page);
+            
+            queryswitchtab("single");
           }  
           
         },
@@ -289,6 +322,28 @@ function processdataajax(datamethod,project_id,plugin_id) {
   }
 
 }
+function processdataajaxquery(datamethod,project_id,plugin_id) {
+  
+  switch(datamethod) {
+    case "actual":
+      $.ajax({
+        type: "GET",
+        url: "http://localhost:8000/api/getprojectfiles/"+project_id+"/"+plugin_id+"/actual_inbins",
+        dataType: "text",
+        success: (data)=> {processDataactual(JSON.parse(data).data);dataloaded++;}//
+      });
+    break;
+    case "validation":
+      $.ajax({
+        type: "GET",
+        url: "http://localhost:8000/api/getprojectfiles/"+project_id+"/"+plugin_id+"/validation_inbins",
+        dataType: "text",
+        success: (data)=> {processDatavalidation(JSON.parse(data).data);dataloaded++;}//
+      });
+    break;
+  }
+
+}
 
 const interpoldemand = (projectid,xloc,yloc,param) => {
   console.log("dataset to flask",projectid,xloc,yloc,param);
@@ -319,6 +374,46 @@ const interpoldemand = (projectid,xloc,yloc,param) => {
           graphusedparam[2] = data.impacts[0][0];
           craftthegraph(graphusedparam[0],graphusedparam[1],graphusedparam[2],"all");
           updateimpactonslider(data.impacts);
+          // updateresultfromslider(param,data.impacts[0][0]);
+          // console.log(opacityactual);
+      }
+  });
+}
+const querydemand = (projectid,xloc,yloc,param) => {
+  console.log("dataset to flask",projectid,xloc,yloc,param);
+  let ajaxdata = new FormData();
+  ajaxdata.append('project_id',projectid);
+  ajaxdata.append('xloc',xloc);
+  ajaxdata.append('yloc',yloc);
+  ajaxdata.append('sliderkey',JSON.stringify(param));
+  ajaxdata.append('api_token','0134494290');
+  $.ajax({
+      type: 'POST',
+      headers: {
+            'Access-Control-Allow-Origin': "https://dev.aisara.ai",
+        //      'Access-Control-Allow-Methods': "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+        //      'Access-Control-Allow-Headers': "Origin, Content-Type, X-CSRF-TOKEN",
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+      url: 'http://localhost:5000/api/aisara/interpolate',
+      data: ajaxdata,
+      processData : false,
+      contentType  : false,
+      success: (data)=>{
+        console.log("done query");
+        console.log(data.impacts[0][0],param[0]);
+        console.log("done query all data");
+        console.log(data);
+        querytableoutput.push(data.impacts[0][0]);
+        querytableparams.push(param[0]);
+        writequerydatatodom();
+          // opacityactual = data.opacity;
+          // opacityvalidation = data.opacity_validation;
+          // graphusedparam[0] = preprocessdata(data.predinbins);
+          // graphusedparam[1] = param;
+          // graphusedparam[2] = data.impacts[0][0];
+          // craftthegraph(graphusedparam[0],graphusedparam[1],graphusedparam[2],"all");
+          // updateimpactonslider(data.impacts);
           // updateresultfromslider(param,data.impacts[0][0]);
           // console.log(opacityactual);
       }

@@ -22,6 +22,8 @@ $(".side-nav-content-data-div").on("click",".datasheetlist_item",function () {
     $(".explorer-sidebar-right").hide();
     // show visible
     $(".content-viewbar").show();
+    $(".content-viewbar-item").hide();
+    $(".content-viewbar-datasheetview").show();
     $(".explorer-sidebar-right.explorer-sidebar-right-maintoolkit").show();
     $("#datasheetlist_dataid"+$(this).data("datasheetlist_itemid")).removeClass( "az-chevron-right" ).addClass( "az-chevron-down" );
   }else{
@@ -44,3 +46,42 @@ $(".side-nav-content-data-div").on("click",".projectlist_item",function () {
   initializing_inapp_ui_viewbar_content();
   getprojectinfo(localStorage.getItem('application_auth_token'),localStorage.getItem('application_auth_email'),$(this).data("projectlist_itemid"),"home")
 });
+
+function handlesinglequeryslider() {
+  // body...
+  console.log("Single query slided");
+  for (const [var_key] in preloadwindowdata_varlist) {
+    $('#singlequeryval'+(var_key+2)).html(parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10));
+  }
+}
+// righttab 
+// query
+function queryswitchtab(tabpurpose) {
+  // body...
+  console.log("Rewriting DOM for right side nav...",tabpurpose);
+  window.rightnavtabquery = tabpurpose;
+  createsliderondom();
+  $(".explorer-sidebar-right.explorer-sidebar-right-querytoolkit").show();
+  showprojectviewquery(preloadwindowdata_project);
+
+  $(".content-viewbar-queryview").show();
+  $(".content-viewbar").show();  
+}
+
+function executequery() {
+  // body...
+  window.querytableoutput = [];
+  window.querytableparams = [];
+  console.log("initiate query : ",window.rightnavtabquery);
+  switch(window.rightnavtabquery){
+    case "single":
+      handleChangequery();
+    break;
+    case "combo":
+      handleChangecomboquery();
+    break;
+  }
+  console.log("Begin query table style adjustment");
+  console.log("size h w",$('#queryTable').height(),$('#queryTable').width());
+}
+

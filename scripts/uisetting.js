@@ -7,6 +7,7 @@ function initializing_inapp_ui(){
   var system_topnav_height = parseInt($('.main-nav-tab').height(), 10);
   var system_subnav_height = parseInt($('.sub-nav-tab').height(), 10);
   console.log("Initialising Nav Height (top,sub) : ",system_topnav_height,system_subnav_height);
+  settingdisabled();
   $('.explorer-sidebar').hide();
   if (window.currentview == "Homeview") {
     console.log("show home");
@@ -48,6 +49,7 @@ function initializing_inapp_ui(){
 
 function initializing_inapp_ui_viewbar_content() {
   // body...
+  settingdisabled();
   console.log("Viewbar Content: ",window.currentview);
   if (window.currentview == "AllDatasheetview") {
 

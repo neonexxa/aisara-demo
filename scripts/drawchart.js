@@ -66,7 +66,7 @@ function processDataactual(allText) {
 function handleChange() {
     $(".graphshift_preloader").show();
     // on scroll
-    console.log("haha");
+    console.log("interpolate initiate");
     var sendingvarforactual = [];
     var sendingvarforimpact = [];
     let tempobjvarlist = {};
@@ -84,6 +84,61 @@ function handleChange() {
     // if (dataloaded == 2) {
     //     craftthegraph(sendingvar,sendingvarforactual,null,sendingvarforimpact);
     // }
+}
+function handleChangequery() {
+	console.log("query initiate");
+	$(".graphshift_preloader").show();
+    // on scroll
+    var sendingvarforactual = [];
+    var sendingvarforimpact = [];
+    let tempobjvarlist = {};
+    for (const [var_key] in preloadwindowdata_varlist) {
+		tempobjvarlist[var_key-1]	= parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10)
+      	// var theValue{{preg_replace("/[^a-zA-Z0-9]+/", "_", $value['name'])}} = parseFloat($('#rangefor{{preg_replace("/[^a-zA-Z0-9]+/", "_",  $value['name'])}}[type="range"]').val()).toFixed(10);
+      	// sendingvarforactual.push({[var_key+2]:parseFloat($('#rangefor'+preloadwindowdata_filteredvarlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10)});
+    }
+    sendingvarforimpact.push(tempobjvarlist);
+
+    console.log("acutal filter: ",sendingvarforactual);
+    actualfilters = sendingvarforactual;
+
+    console.log("THINGS SENT TO FLASK ----");
+    console.log("Project: ",preloadwindowdata_project.id);
+    console.log("X: ",xaxis_setting-1); //temporary
+    console.log("Y: ",yaxis_setting-1); //temporary
+    console.log("Var: ",sendingvarforimpact);
+    console.log("END THINGS SENT TO FLASK ----");
+    querydemand(preloadwindowdata_project.id,xaxis_setting-1,yaxis_setting-1,sendingvarforimpact);
+}
+function handleChangecomboquery() {
+	console.log("query initiate");
+	$(".graphshift_preloader").show();
+    // on scroll
+    var sendingvarforactual = [];
+    var sendingvarforimpact = [];
+    
+    let tempobjvarlist = {};
+    for (const [var_key] in preloadwindowdata_varlist) {
+		tempobjvarlist[var_key-1]	= [..._.range(parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 0 )).toFixed(10),parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 1 )).toFixed(10),parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "option", "step" )).toFixed(10)),parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 1 )).toFixed(10)].map((x)=>{return parseFloat(x).toFixed(10)});
+    }
+    sendingvarforimpact.push(tempobjvarlist);
+	let arrayedobject = Object.keys(tempobjvarlist).map(function(key) {
+	  return tempobjvarlist[key];
+	});
+    console.log("acutal filter: ",sendingvarforactual);
+    actualfilters = sendingvarforactual;
+    
+    console.log("THINGS SENT TO FLASK ----");
+    console.log("Project: ",preloadwindowdata_project.id);
+    console.log("X: ",xaxis_setting-1); // temporary
+    console.log("Y: ",yaxis_setting-1); // temporary
+    console.log("Var: ",sendingvarforimpact);
+    console.log("END THINGS SENT TO FLASK ----");
+    combine(arrayedobject).map((x)=>{
+    	let sendingvarforimpact2 = [];
+    	sendingvarforimpact2.push({ ..._.split(x, ',') });
+    	querydemand(preloadwindowdata_project.id,xaxis_setting-1,yaxis_setting-1,sendingvarforimpact2);
+    });
 }
 // function switchfilter() {
 //     // this will contain a reference to the checkbox   

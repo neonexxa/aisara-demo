@@ -21,6 +21,8 @@
     "bootstrap-slider": "^10.6.2",
     "electron-packager": "^14.0.1",
     "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
+    "jquery-ui-dist": "^1.12.1",
     "popper.js": "^1.15.0",
     "rangeslider.js": "^2.3.2"
   },
