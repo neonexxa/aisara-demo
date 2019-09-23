@@ -38,7 +38,7 @@ $( window ).resize(function() {
 // auth login
 $("#login-form").on('submit',function(e){
   e.preventDefault();
-  $.post($(this).attr('action'),{email:$("#exampleInputEmail1").val(),password:$("#exampleInputPassword1").val()},function(response){
+  $.post(centrica_domain+"/api/auth/login",{email:$("#exampleInputEmail1").val(),password:$("#exampleInputPassword1").val()},function(response){
     console.log(response);
     if (response.access_token) {
       localStorage.setItem('application_auth_token', response.access_token);

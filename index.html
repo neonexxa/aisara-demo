@@ -281,6 +281,7 @@
 
 	/*adjustment*/
 	</style>
+
   </head>
   <body class="body-color systembody" style="width: 100vw;height: 100vh;">
 
@@ -289,22 +290,24 @@
     We are using node <script>document.write(process.versions.node)</script>,
     Chrome <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>. -->
+
 	<div id="aisaraguestt">
-		<form action="http://localhost:8000/api/auth/login"	method="POST" id="login-form">
-		  <div class="form-group">
-		    <label for="exampleInputEmail1">Email address</label>
-		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-		    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-		  </div>
-		  <div class="form-group">
-		    <label for="exampleInputPassword1">Password</label>
-		    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-		  </div>
-		  <div class="form-group form-check">
-		    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-		    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-		  </div>
-		  <button type="submit" class="btn btn-primary">Submit</button>
+		<!-- <script>document.write(loginfrom)</script>	 -->
+		<form id="login-form">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Email address</label>
+				<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+				<small id="emailHelp" class="form-text text-muted">We"ll never share your email with anyone else.</small>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Password</label>
+				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+			</div>
+			<div class="form-group form-check">
+				<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				<label class="form-check-label" for="exampleCheck1">Check me out</label>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
     <div id="aisaraauthenticated">
@@ -852,6 +855,7 @@
 	  </div>
 	</div>
 	<script src="scripts/env.js"></script>
+	
 	<script src="scripts/generalfunction.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js" integrity="sha256-VeNaFBVDhoX3H+gJ37DpT/nTuZTdjYro9yBruHjVmoQ=" crossorigin="anonymous"></script>
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -859,7 +863,6 @@
 	<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <!-- <script src="modals/new_dataset.js"></script> -->
     <script src="scripts/months.js"></script>
-    
     <script src="scripts/domwriter.js"></script>
     <script src="scripts/apifunc.js"></script>
     <script src="scripts/item_creation.js"></script>
