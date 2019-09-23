@@ -2,7 +2,7 @@
 function authenticate_user(token,expiry_at){
 
 	$.ajax({
-	    url: 'http://localhost:8000/api/auth/user',
+	    url: centrica_domain+'/api/auth/user',
 	    headers: {
 	        'Authorization': `Bearer ${token}`,
 	    },
@@ -29,7 +29,7 @@ function authenticate_user(token,expiry_at){
 function getdatasetlist(token,method) {
   console.log("Getting All Dataset Method: ",method);
   $.ajax({
-      url: 'http://localhost:8000/api/getdatasheetallcustom/'+method,
+      url: centrica_domain+'/api/getdatasheetallcustom/'+method,
       headers: {
           'Authorization': `Bearer ${token}`,
       },
@@ -88,7 +88,7 @@ function getprojectlist(token,datasetid,method) {
   //     }
   // });
   $.ajax({
-      url: 'http://localhost:8000/api/desktopapi/datasheet/'+datasetid+'/getdatasheetprojectallcustom/'+method,
+      url: centrica_domain+'/api/desktopapi/datasheet/'+datasetid+'/getdatasheetprojectallcustom/'+method,
       headers: {
           'Authorization': `Bearer ${token}`,
       },
@@ -126,7 +126,7 @@ function loaddatapreview(token,datasetid,pluginid,user) {
       'Authorization': `Bearer ${token}`,
     },
     // url: 'http://localhost:5000/api/aisara/preview',
-    url: 'http://localhost:8000/api/desktopapi/datasheet/'+datasetid+'/plugin/'+pluginid+'/user/'+user+'/apipreviewdatasheet',
+    url: centrica_domain+'/api/desktopapi/datasheet/'+datasetid+'/plugin/'+pluginid+'/user/'+user+'/apipreviewdatasheet',
     
     success: (data)=>{
       console.log("Successfuly Fetch Dataset .. ");
@@ -139,7 +139,7 @@ function loaddatapreview(token,datasetid,pluginid,user) {
 function createnewproject(token,user,projectnew_dataid,projectnew_pluginid,project_title,params) {
   // body...
   console.log("User: ",user);
-  let path = 'http://localhost:8000/api/desktopapi/datasheet/'+projectnew_dataid+'/plugin/'+projectnew_pluginid+'/user/'+user+'/apinewporject/new/'+project_title;
+  let path = centrica_domain+'/api/desktopapi/datasheet/'+projectnew_dataid+'/plugin/'+projectnew_pluginid+'/user/'+user+'/apinewporject/new/'+project_title;
   console.log("Path",path);
   let ajaxdata = new FormData();
   ajaxdata.append("params",'{"project_profile":{"name":"azrycube","split":"50","split_type":"random","round_type":"up"},"params":{"ObjFunc":{"usable":"true","min":"1.958854897","max":"16.02620789","binsize":"10","datatype":"continuous","columntype":"target"},"Para1":{"usable":"true","min":"1","max":"10","binsize":"10","datatype":"categorical","columntype":"variable"},"Para2":{"usable":"true","min":"1","max":"10","binsize":"10","datatype":"categorical","columntype":"variable"},"Para3":{"usable":"true","min":"1","max":"10","binsize":"10","datatype":"categorical","columntype":"variable"}},"ranking":{"type":"default","array":["ObjFunc","Para1","Para2","Para3"]}}');
@@ -171,7 +171,7 @@ function getprojectinfo(token,user,project_id,project_page) {
   switch(project_page) {
     case "home":
       $.ajax({
-        url: 'http://localhost:8000/api/getprojectinfos/'+project_id,
+        url: centrica_domain+'/api/getprojectinfos/'+project_id,
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -203,7 +203,7 @@ function getprojectinfo(token,user,project_id,project_page) {
     case "blindtest":
     case "3d":
       $.ajax({
-        url: 'http://localhost:8000/api/getprojectoutcome/'+project_id,
+        url: centrica_domain+'/api/getprojectoutcome/'+project_id,
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -255,7 +255,7 @@ function getprojectinfo(token,user,project_id,project_page) {
       break;
     case "query":
       $.ajax({
-        url: 'http://localhost:8000/api/getprojectoutcome/'+project_id,
+        url: centrica_domain+'/api/getprojectoutcome/'+project_id,
         headers: {
             'Authorization': `Bearer ${token}`,
         },
@@ -298,7 +298,7 @@ function processdataajax(datamethod,project_id,plugin_id) {
     case "actual":
       $.ajax({
         type: "GET",
-        url: "http://localhost:8000/api/getprojectfiles/"+project_id+"/"+plugin_id+"/actual_inbins",
+        url: centrica_domain+"/api/getprojectfiles/"+project_id+"/"+plugin_id+"/actual_inbins",
         dataType: "text",
         success: (data)=> {processDataactual(JSON.parse(data).data);dataloaded++;handleChange();}//
       });
@@ -306,7 +306,7 @@ function processdataajax(datamethod,project_id,plugin_id) {
     case "validation":
       $.ajax({
         type: "GET",
-        url: "http://localhost:8000/api/getprojectfiles/"+project_id+"/"+plugin_id+"/validation_inbins",
+        url: centrica_domain+"/api/getprojectfiles/"+project_id+"/"+plugin_id+"/validation_inbins",
         dataType: "text",
         success: (data)=> {processDatavalidation(JSON.parse(data).data);dataloaded++;handleChange();}//
       });
@@ -314,7 +314,7 @@ function processdataajax(datamethod,project_id,plugin_id) {
     case "blindtest":
       $.ajax({
         type: "GET",
-        url: "http://localhost:8000/api/getprojectfiles/"+project_id+"/"+plugin_id+"/bs",
+        url: centrica_domain+"/api/getprojectfiles/"+project_id+"/"+plugin_id+"/bs",
         dataType: "text",
         success: (data)=> {jsonrespond = JSON.parse(data);craftthegraphbt(jsonrespond.data,0,0);$('#exportvalidationbutton').show();}//
       });
@@ -328,7 +328,7 @@ function processdataajaxquery(datamethod,project_id,plugin_id) {
     case "actual":
       $.ajax({
         type: "GET",
-        url: "http://localhost:8000/api/getprojectfiles/"+project_id+"/"+plugin_id+"/actual_inbins",
+        url: centrica_domain+"/api/getprojectfiles/"+project_id+"/"+plugin_id+"/actual_inbins",
         dataType: "text",
         success: (data)=> {processDataactual(JSON.parse(data).data);dataloaded++;}//
       });
@@ -336,7 +336,7 @@ function processdataajaxquery(datamethod,project_id,plugin_id) {
     case "validation":
       $.ajax({
         type: "GET",
-        url: "http://localhost:8000/api/getprojectfiles/"+project_id+"/"+plugin_id+"/validation_inbins",
+        url: centrica_domain+"/api/getprojectfiles/"+project_id+"/"+plugin_id+"/validation_inbins",
         dataType: "text",
         success: (data)=> {processDatavalidation(JSON.parse(data).data);dataloaded++;}//
       });
@@ -361,7 +361,7 @@ const interpoldemand = (projectid,xloc,yloc,param) => {
         //      'Access-Control-Allow-Headers': "Origin, Content-Type, X-CSRF-TOKEN",
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-      url: 'http://localhost:5000/api/aisara/interpolate',
+      url: sara_domain+'/api/aisara/interpolate',
       data: ajaxdata,
       processData : false,
       contentType  : false,
@@ -395,7 +395,7 @@ const querydemand = (projectid,xloc,yloc,param) => {
         //      'Access-Control-Allow-Headers': "Origin, Content-Type, X-CSRF-TOKEN",
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-      url: 'http://localhost:5000/api/aisara/interpolate',
+      url: sara_domain+'/api/aisara/interpolate',
       data: ajaxdata,
       processData : false,
       contentType  : false,
