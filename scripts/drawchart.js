@@ -70,8 +70,8 @@ function handleChange() {
     var sendingvarforactual = [];
     var sendingvarforimpact = [];
     let tempobjvarlist = {};
-    for (const [var_key] in preloadwindowdata_varlist) {
-		tempobjvarlist[var_key-1]	= parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10)
+    for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
+		tempobjvarlist[var_key-1]	= parseFloat($('#rangefor'+window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10)
       	// var theValue{{preg_replace("/[^a-zA-Z0-9]+/", "_", $value['name'])}} = parseFloat($('#rangefor{{preg_replace("/[^a-zA-Z0-9]+/", "_",  $value['name'])}}[type="range"]').val()).toFixed(10);
       	// sendingvarforactual.push({[var_key+2]:parseFloat($('#rangefor'+preloadwindowdata_filteredvarlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10)});
     }
@@ -80,7 +80,7 @@ function handleChange() {
     console.log("things sent to flask",xaxis_setting-1,yaxis_setting-1,sendingvarforimpact);
     console.log("acutal filter: ",sendingvarforactual);
     actualfilters = sendingvarforactual;
-    interpoldemand(preloadwindowdata_project.id,xaxis_setting-1,yaxis_setting-1,sendingvarforimpact);
+    interpoldemand(window.preloadwindowdata_[target_num].preloadwindowdata_project.id,xaxis_setting-1,yaxis_setting-1,sendingvarforimpact);
     // if (dataloaded == 2) {
     //     craftthegraph(sendingvar,sendingvarforactual,null,sendingvarforimpact);
     // }
@@ -92,8 +92,8 @@ function handleChangequery() {
     var sendingvarforactual = [];
     var sendingvarforimpact = [];
     let tempobjvarlist = {};
-    for (const [var_key] in preloadwindowdata_varlist) {
-		tempobjvarlist[var_key-1]	= parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10)
+    for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
+		tempobjvarlist[var_key-1]	= parseFloat($('#rangefor'+window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10)
       	// var theValue{{preg_replace("/[^a-zA-Z0-9]+/", "_", $value['name'])}} = parseFloat($('#rangefor{{preg_replace("/[^a-zA-Z0-9]+/", "_",  $value['name'])}}[type="range"]').val()).toFixed(10);
       	// sendingvarforactual.push({[var_key+2]:parseFloat($('#rangefor'+preloadwindowdata_filteredvarlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10)});
     }
@@ -101,14 +101,14 @@ function handleChangequery() {
 
     console.log("acutal filter: ",sendingvarforactual);
     actualfilters = sendingvarforactual;
-
+    console.log("target_num",target_num);
     console.log("THINGS SENT TO FLASK ----");
-    console.log("Project: ",preloadwindowdata_project.id);
+    console.log("Project: ",window.preloadwindowdata_[target_num].preloadwindowdata_project);
     console.log("X: ",xaxis_setting-1); //temporary
     console.log("Y: ",yaxis_setting-1); //temporary
     console.log("Var: ",sendingvarforimpact);
     console.log("END THINGS SENT TO FLASK ----");
-    querydemand(preloadwindowdata_project.id,xaxis_setting-1,yaxis_setting-1,sendingvarforimpact);
+    querydemand(window.preloadwindowdata_[target_num].preloadwindowdata_project.id,xaxis_setting-1,yaxis_setting-1,sendingvarforimpact);
 }
 function handleChangecomboquery() {
 	console.log("query initiate");
@@ -118,8 +118,8 @@ function handleChangecomboquery() {
     var sendingvarforimpact = [];
     
     let tempobjvarlist = {};
-    for (const [var_key] in preloadwindowdata_varlist) {
-		tempobjvarlist[var_key-1]	= [..._.range(parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 0 )).toFixed(10),parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 1 )).toFixed(10),parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "option", "step" )).toFixed(10)),parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 1 )).toFixed(10)].map((x)=>{return parseFloat(x).toFixed(10)});
+    for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
+		tempobjvarlist[var_key-1]	= [..._.range(parseFloat($('#rangefor'+window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 0 )).toFixed(10),parseFloat($('#rangefor'+window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 1 )).toFixed(10),parseFloat($('#rangefor'+window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "option", "step" )).toFixed(10)),parseFloat($('#rangefor'+window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')).slider( "values", 1 )).toFixed(10)].map((x)=>{return parseFloat(x).toFixed(10)});
     }
     sendingvarforimpact.push(tempobjvarlist);
 	let arrayedobject = Object.keys(tempobjvarlist).map(function(key) {
@@ -129,7 +129,7 @@ function handleChangecomboquery() {
     actualfilters = sendingvarforactual;
     
     console.log("THINGS SENT TO FLASK ----");
-    console.log("Project: ",preloadwindowdata_project.id);
+    console.log("Project: ",window.preloadwindowdata_[target_num].preloadwindowdata_project.id);
     console.log("X: ",xaxis_setting-1); // temporary
     console.log("Y: ",yaxis_setting-1); // temporary
     console.log("Var: ",sendingvarforimpact);
@@ -137,7 +137,7 @@ function handleChangecomboquery() {
     combine(arrayedobject).map((x)=>{
     	let sendingvarforimpact2 = [];
     	sendingvarforimpact2.push({ ..._.split(x, ',') });
-    	querydemand(preloadwindowdata_project.id,xaxis_setting-1,yaxis_setting-1,sendingvarforimpact2);
+    	querydemand(window.preloadwindowdata_[target_num].preloadwindowdata_project.id,xaxis_setting-1,yaxis_setting-1,sendingvarforimpact2);
     });
 }
 // function switchfilter() {
@@ -174,7 +174,7 @@ function handleChangecomboquery() {
 		    
 	        function updateimpactonslider(impactarr) {
 	        	console.log("impact on slider");
-	            for (const [var_key] in preloadwindowdata_varlist) {
+	            for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
 					$('#impactlabelrangefor'+(var_key+2)).html(parseFloat(impactarr[0][var_key]*100).toFixed(2) + "%");
 				}
 	            
@@ -265,22 +265,22 @@ function handleChangecomboquery() {
 	            console.log("filtered data",filtered_data);
 	            // prediction
 	            var varlength = Object.keys(filtered_data[0]).length;
-	            var dnewArr = _.chunk(filtered_data.map(e => e[preloadwindowdata_var['x'][0]]),preloadwindowdata_blocksize["Y"]);
-	            var enewArr = _.chunk(filtered_data.map(e => e[preloadwindowdata_var['y'][0]]),preloadwindowdata_blocksize["Y"]);
-	            var fnewArr = _.chunk(filtered_data.map(e => e[preloadwindowdata_var['z'][0]]),preloadwindowdata_blocksize["Y"]);
-	            console.log("chunking 1",preloadwindowdata_var['x'][1],preloadwindowdata_var['x'][0]);
-	            console.log("chunking 2",preloadwindowdata_var['y'][1],preloadwindowdata_var['y'][0]);
-	            console.log("chunking 3",preloadwindowdata_var['z'][1],preloadwindowdata_var['z'][0]);
+	            var dnewArr = _.chunk(filtered_data.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][0]]),window.preloadwindowdata_[target_num].preloadwindowdata_blocksize["Y"]);
+	            var enewArr = _.chunk(filtered_data.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][0]]),window.preloadwindowdata_[target_num].preloadwindowdata_blocksize["Y"]);
+	            var fnewArr = _.chunk(filtered_data.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]]),window.preloadwindowdata_[target_num].preloadwindowdata_blocksize["Y"]);
+	            console.log("chunking 1",window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][1],window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][0]);
+	            console.log("chunking 2",window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][1],window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][0]);
+	            console.log("chunking 3",window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][1],window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]);
 	            console.log("e size",varlength);
 	            function textmap(e) {
 	            	// body...
-	            	let tempe = preloadwindowdata_var['z'][1]+":"+e[preloadwindowdata_var['z'][0]]+"<br>";
-	            	for (const [var_key] in preloadwindowdata_varlist) {
-		            	tempe += preloadwindowdata_varlist[var_key]['name']+":" + e[var_key]+"<br>";
+	            	let tempe = window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][1]+":"+e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]]+"<br>";
+	            	for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
+		            	tempe += window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]['name']+":" + e[var_key]+"<br>";
 		            }
 
 	            }
-	            var gentexttracesurface = _.chunk(filtered_data.map(e => textmap(e)),preloadwindowdata_blocksize["Y"]);
+	            var gentexttracesurface = _.chunk(filtered_data.map(e => textmap(e)),window.preloadwindowdata_[target_num].preloadwindowdata_blocksize["Y"]);
 	            console.log("surface hover",gentexttracesurface);
 	            // console.log("recheck:",dnewArr,enewArr,fnewArr);
 	            // var filters = (filterswitch == false)? '': actualfilters;
@@ -302,19 +302,19 @@ function handleChangecomboquery() {
 
 	            // actual value
 	            console.log("filtered data actual",filtered_data_actual,"filtered data validation",filtered_data_validation);
-	            var actual_dtest_arr = filtered_data_actual.map(e => e[preloadwindowdata_var['x'][0]+5]);
-	            var actual_etest_arr = filtered_data_actual.map(e => e[preloadwindowdata_var['y'][0]+5]);
-	            var actual_ftest_arr = filtered_data_actual.map(e => e[preloadwindowdata_var['z'][0]+2]);
-	            var actual_fclonetest_arr = filtered_data_actual.map(e => e[preloadwindowdata_var['z'][0]+3]);
-	            var actual_midtest_arr = filtered_data_actual.map(e => e[preloadwindowdata_var['z'][0]+4]);
-	            var actual_errortest_arr = filtered_data_actual.map(e => e[preloadwindowdata_var['z'][0]+5]);
+	            var actual_dtest_arr = filtered_data_actual.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][0]+5]);
+	            var actual_etest_arr = filtered_data_actual.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][0]+5]);
+	            var actual_ftest_arr = filtered_data_actual.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+2]);
+	            var actual_fclonetest_arr = filtered_data_actual.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+3]);
+	            var actual_midtest_arr = filtered_data_actual.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+4]);
+	            var actual_errortest_arr = filtered_data_actual.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+5]);
 
-	            var validation_dtest_arr = filtered_data_validation.map(e => e[preloadwindowdata_var['x'][0]+5]);
-	            var validation_etest_arr = filtered_data_validation.map(e => e[preloadwindowdata_var['y'][0]+5]);
-	            var validation_ftest_arr = filtered_data_validation.map(e => e[preloadwindowdata_var['z'][0]+2]);
-	            var validation_fclonetest_arr = filtered_data_validation.map(e => e[preloadwindowdata_var['z'][0]+3]);
-	            var validation_midtest_arr = filtered_data_validation.map(e => e[preloadwindowdata_var['z'][0]+4]);
-	            var validation_errortest_arr = filtered_data_validation.map(e => e[preloadwindowdata_var['z'][0]+5]);
+	            var validation_dtest_arr = filtered_data_validation.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][0]+5]);
+	            var validation_etest_arr = filtered_data_validation.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][0]+5]);
+	            var validation_ftest_arr = filtered_data_validation.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+2]);
+	            var validation_fclonetest_arr = filtered_data_validation.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+3]);
+	            var validation_midtest_arr = filtered_data_validation.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+4]);
+	            var validation_errortest_arr = filtered_data_validation.map(e => e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+5]);
 	            // var midpoint = filtered_error_actual.map(e => e[1]);
 	            // var error_line = filtered_error_actual.map(e => e[0]);
 
@@ -328,9 +328,9 @@ function handleChangecomboquery() {
 	            // var trace2text = _.map(dnewArr,tracetextmaking);
 	            function textmapgentexttracescatter(e) {
 	            	// body...
-	            	let tempe = preloadwindowdata_var['z'][1]+":"+e[preloadwindowdata_var['z'][0]+2]+"<br>";
-	            	for (const [var_key] in preloadwindowdata_varlist) {
-		            	tempe += preloadwindowdata_varlist[var_key]['name']+":" + e[var_key+5]+"<br>";
+	            	let tempe = window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][1]+":"+e[window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][0]+2]+"<br>";
+	            	for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
+		            	tempe += window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]['name']+":" + e[var_key+5]+"<br>";
 		            }
 
 	            }
@@ -339,9 +339,9 @@ function handleChangecomboquery() {
 
 	            function textmapgentexttracescatterpoint() {
 	            	// body...
-	            	let tempe = preloadwindowdata_var['z'][1]+":"+paramresult+"<br>";
-	            	for (const [var_key] in preloadwindowdata_varlist) {
-		            	tempe += preloadwindowdata_varlist[var_key]['name']+":" + var_key+":"+param[0][var_key-1]+"<br>";
+	            	let tempe = window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][1]+":"+paramresult+"<br>";
+	            	for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
+		            	tempe += window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]['name']+":" + var_key+":"+param[0][var_key-1]+"<br>";
 		            }
 		            return tempe;
 	            }
@@ -413,8 +413,8 @@ function handleChangecomboquery() {
 	            };
 	            var trace4 = {
 	                name: 'point', 
-	                x: [param[0][preloadwindowdata_var['x'][0]-1]],
-	                y: [param[0][preloadwindowdata_var['y'][0]-1]],
+	                x: [param[0][window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][0]-1]],
+	                y: [param[0][window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][0]-1]],
 	                z: [paramresult],
 	                autocolorscale: false, 
 	                marker: {
@@ -564,21 +564,21 @@ function handleChangecomboquery() {
 	                }, 
 	                camera: JSON.parse(threeDsurfacecam),//, 
 	                xaxis: {
-	                  title: preloadwindowdata_var['x'][1],
+	                  title: window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][1],
 	                  backgroundcolor: '#F9F9F9', 
 	                  gridcolor: '#BAB8BA', 
 	                  showbackground: true, 
 	                  zerolinecolor: 'rgb(255, 255, 255)'
 	                }, 
 	                yaxis: {
-	                  title: preloadwindowdata_var['y'][1],
+	                  title: window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][1],
 	                  backgroundcolor: '#F9F9F9', 
 	                  gridcolor: '#BAB8BA', 
 	                  showbackground: true, 
 	                  zerolinecolor: 'rgb(255, 255, 255)'
 	                }, 
 	                zaxis: {
-	                  title: preloadwindowdata_var['z'][1],
+	                  title: window.preloadwindowdata_[target_num].preloadwindowdata_var['z'][1],
 	                  backgroundcolor: '#F9F9F9', 
 	                  gridcolor: '#BAB8BA', 
 	                  showbackground: true, 

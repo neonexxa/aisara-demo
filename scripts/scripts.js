@@ -72,6 +72,7 @@ $( "#formnewsheet" ).submit(function( event ) {
     $('#new_datasheet_upload_button').text('Uploading...');
     let ajaxdata = new FormData();
     let token = localStorage.getItem('application_auth_token');
+    console.log("bearer:",token);
     ajaxdata.append("source",$('#uploadtype').val());
     switch($('#uploadtype').val()) {
       case 'localdrop':
@@ -106,7 +107,7 @@ $( "#formnewsheet" ).submit(function( event ) {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
-          url: 'http://localhost:8000/mydb/datasheet/1',
+          url: 'http://localhost:8000/mydb/datasheet/1?api_type=api',
           data: ajaxdata,
           processData : false,
           contentType  : false,

@@ -50,19 +50,20 @@ $(".side-nav-content-data-div").on("click",".projectlist_item",function () {
 function handlesinglequeryslider() {
   // body...
   console.log("Single query slided");
-  for (const [var_key] in preloadwindowdata_varlist) {
-    $('#singlequeryval'+(var_key+2)).html(parseFloat($('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10));
+  for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
+    $('#singlequeryval'+(var_key+2)).html(parseFloat($('#rangefor'+window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').val()).toFixed(10));
   }
 }
 // righttab 
 // query
 function queryswitchtab(tabpurpose) {
   // body...
+  console.log("Target Num: ",target_num)
   console.log("Rewriting DOM for right side nav...",tabpurpose);
   window.rightnavtabquery = tabpurpose;
   createsliderondom();
   $(".explorer-sidebar-right.explorer-sidebar-right-querytoolkit").show();
-  showprojectviewquery(preloadwindowdata_project);
+  showprojectviewquery(window.preloadwindowdata_[target_num].preloadwindowdata_project);
 
   $(".content-viewbar-queryview").show();
   $(".content-viewbar").show();  
@@ -85,3 +86,54 @@ function executequery() {
   console.log("size h w",$('#queryTable').height(),$('#queryTable').width());
 }
 
+function querychangetarget() {
+  // body...
+  console.log("changing target :",$("#query-target-select-option").val());
+  window.target_num = $("#query-target-select-option").val();
+  console.log("querytab :",window.rightnavtabquery)
+  queryswitchtab(window.rightnavtabquery);
+}
+function dataswitchtab(tabpurpose) {
+  // body...
+  console.log("Rewriting DOM for right side nav...",tabpurpose);
+  window.rightnavtabdata = tabpurpose;
+  // $(".explorer-sidebar-right.explorer-sidebar-right-querytoolkit").show();
+  // showprojectviewquery(window.preloadwindowdata_[target_num].preloadwindowdata_project);
+
+  if (rightnavtabdata == "dataset") {
+    $(".content-viewbar").show();
+    $(".content-viewbar-item").hide();
+    $(".content-viewbar-datasheetview").show();
+
+    // right nav
+    $(".side-nave-content-projecttab").hide();
+    $(".side-nave-content-datatab").show();
+  }else{
+    $(".content-viewbar").show();
+    $(".content-viewbar-item").hide();
+    $(".content-viewbar-projectsettingview").show();
+
+    // right nav
+    $(".side-nave-content-datatab").hide();
+    $(".side-nave-content-projecttab").show();
+  }
+  
+  // $(".content-viewbar").show();  
+}
+function changetargettype() {
+  // body...
+  let newproject_target_type = $("#newproject_target_type").val();
+  console.log("Selecting target type: ", newproject_target_type);
+  if (newproject_target_type == "single") {
+    writepreviewdatasettingtodom(window.previewdataset,newproject_target_type);
+  }else{
+    writepreviewdatasettingtodom(window.previewdataset,newproject_target_type);
+  }
+}
+
+function treedchangetarget() {
+  // body...
+  console.log("changing target :",$("#3d-target-select-option").val());
+  window.target_num = $("#3d-target-select-option").val();
+  chart3dbtntrigger();
+}

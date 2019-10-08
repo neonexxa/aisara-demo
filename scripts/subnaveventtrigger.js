@@ -46,17 +46,22 @@ $(".sub-nav-item-btn-query").click(function () {
   }
 });
 $(".sub-nav-item-btn-3d").click(function () {
+  window.target_num = 0;
   window.buttontriggered = "sub-nav-item-btn-3d";
-	console.log("Checking buttontriggered ... ", window.buttontriggered);
+	chart3dbtntrigger();
+});
+
+function chart3dbtntrigger() {
+  console.log("Checking buttontriggered ... ", window.buttontriggered);
   console.log("Checking current view ... ", window.currentview);
   console.log("Showing 3d Project", $("#content-viewbar-viewitem").val());
   if (window.currentview == "Projectview") {
-  	$(".content-viewbar").hide();
+    $(".content-viewbar").hide();
     $(".content-viewbar-item").hide();
-  	$(".explorer-sidebar-right").hide();
-  	getprojectinfo(localStorage.getItem('application_auth_token'),localStorage.getItem('application_auth_email'),$("#content-viewbar-viewitem").val(),"3d");
+    $(".explorer-sidebar-right").hide();
+    getprojectinfo(localStorage.getItem('application_auth_token'),localStorage.getItem('application_auth_email'),$("#content-viewbar-viewitem").val(),"3d");
   }else{
-  	alert("Not in project view");
+    alert("Not in project view");
   }
-});
+}
 

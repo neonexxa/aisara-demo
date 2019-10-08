@@ -18,8 +18,8 @@ function showprojectview3d(project) {
 	window.filterswitch         = false;// global
     window.filters              = false;//global
     window.actualfilters        = '';
-    window.xaxis_setting        = preloadwindowdata_var['x'][0];
-    window.yaxis_setting        = preloadwindowdata_var['y'][0];
+    window.xaxis_setting        = window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][0];
+    window.yaxis_setting        = window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][0];
     window.lol                  = 0;
     window.dataloaded           = 0;
     window.plugin               = '';
@@ -56,8 +56,8 @@ function showprojectview3d(project) {
 		// Callback function
 		onSlideEnd: (position, value) => {}
     }).on('change', handleChange);
- 	for (const [var_key] in preloadwindowdata_varlist) {
- 		$('#rangefor'+preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').rangeslider({
+ 	for (const [var_key] in window.preloadwindowdata_[target_num].preloadwindowdata_varlist) {
+ 		$('#rangefor'+window.preloadwindowdata_[target_num].preloadwindowdata_varlist[var_key]["name"].replace(/[^a-zA-Z0-9]+/, '_')+'[type="range"]').rangeslider({
           polyfill: true,
           rangeClass: 'rangeslider',
           disabledClass: 'rangeslider--disabled',
@@ -99,8 +99,8 @@ function showprojectviewquery(project) {
 	window.filterswitch         = false;// global
     window.filters              = false;//global
     window.actualfilters        = '';
-    window.xaxis_setting        = preloadwindowdata_var['x'][0];
-    window.yaxis_setting        = preloadwindowdata_var['y'][0];
+    window.xaxis_setting        = window.preloadwindowdata_[target_num].preloadwindowdata_var['x'][0];
+    window.yaxis_setting        = window.preloadwindowdata_[target_num].preloadwindowdata_var['y'][0];
     window.lol                  = 0;
     window.dataloaded           = 0;
     window.plugin               = '';

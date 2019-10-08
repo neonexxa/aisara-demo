@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Well Safety Critical Element Prediction</title>
+    <!-- <title>Well Safety Critical Element Prediction</title> -->
+    <title>AISARA DESKTOP</title>
     <link rel="stylesheet" href="node_modules/azry-icon/scss/style.css">
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" />
@@ -583,6 +584,39 @@
 								
 							</div>
 						</div>
+						<div class="content-viewbar-item content-viewbar-projectsettingview" style="display: none">
+							<!-- <div class="row" style="margin:0px;padding: 10px;">
+								<table class="table table-bordered text-center" style="font-size: 10px">
+									<thead>
+			                            <tr>
+			                            	<td style="padding: 5px;background-color: white" width="3%"></td>
+			                            	<td style="padding: 5px;background-color: white" width="90%">input</td>
+			                            	<td style="padding: 5px;background-color: #B3CDE0" width="7%">output</td>
+			                            </tr>
+			                        </thead>
+								</table>
+							</div> -->
+							<div class="row" style="margin:0px;padding: 10px;overflow-y: scroll" id="content_view_bar_table_projectsetting">
+								<table id="paramsprojectnew" class="table table-bordered text-center" style="width:100%;font-size: 10px">
+					                <tbody>
+				                	  <tr class="previewtable_select_target_row">
+		                              </tr>
+					                  <tr class="previewtable_usable_row">
+					                  </tr>
+					                  <tr class="previewtable_header_row">
+					                  </tr>
+					                  <tr class="previewtable_min_row">
+					                  </tr>
+					                  <tr class="previewtable_max_row">
+					                  </tr>
+					                  <tr class="previewtable_binsize_row">
+					                  </tr>
+					                  <tr class="previewtable_datatype_row">
+					                  </tr>
+					                </tbody>
+					            </table>
+							</div>
+						</div>
 						<div class="content-viewbar-item content-viewbar-chartview" style="display: none">
 							<div class="graphshift_preloader" style="display: none"></div>
 							<div class="row" style="margin:0px;" id="content_view_bar_chart">
@@ -613,11 +647,13 @@
 						</div>
 						<div class="row" style="margin:0px">
 							<div class="btn-group" role="group" style="width: -webkit-fill-available;">
-							  <button type="button" class="btn btn-right-toolkit-tab active" style="font-size: 10px">Dataset</button>
-							  <button type="button" class="btn btn-right-toolkit-tab" style="font-size: 10px">Project</button>
+							  <button type="button" class="btn btn-right-toolkit-tab active" style="font-size: 10px" onclick="dataswitchtab('dataset')">Dataset</button>
+							  <button type="button" class="btn btn-right-toolkit-tab" style="font-size: 10px" onclick="dataswitchtab('project')">Project</button>
 							</div>
 						</div>
-						<div class="side-nave-content-projecttab">
+						<div class="side-nave-content-datatab" style="display: none">
+						</div>
+						<div class="side-nave-content-projecttab" style="display: none">
 							<input type="hidden" id="newproject_datasheetid">
 							<br>
 							<div class="row" style="margin:0px">
@@ -627,6 +663,15 @@
 								<input style="font-size: 11px;width: -webkit-fill-available;border: solid 2px #315E89;border-radius: 8px;" type="text" value="A New Project" id="newproject_projectname" name="newproject_projectname">
 							</div>
 							<br>
+							<div class="row" style="margin:0px">
+								<span class="text-center side-nav-head-font">Target Type</span>
+							</div>
+							<div class="row" style="margin:0px">
+								<select name="newproject_target_type" id="newproject_target_type" style="font-size: 11px;width: -webkit-fill-available;border: solid 2px #315E89;border-radius: 8px;" onchange="changetargettype()">
+				                    <option value="single" selected="">Single Target</option>
+				                    <option value="multi">Multi Target</option>
+				                </select>
+							</div>
 							<div class="row" style="margin:0px">
 								<span class="text-center side-nav-head-font">Train / Blindtest split</span>
 							</div>
@@ -727,6 +772,10 @@
 							<span class="text-center side-nav-head-font">Axis Options</span>
 						</div>
 						<div class="row" style="margin:0px">
+							<select name="3d-target-select-option" id="3d-target-select-option" onchange="treedchangetarget()">
+								
+							</select>
+							<br>
 							<div class="btn-group" role="group" style="width: -webkit-fill-available;">
 								<div class="btn-group" role="group" style="width: 50%">
 								    <button id="btnGroupDrop1" type="button" class="btn btn-right-toolkit-tab dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: 0px;padding-bottom: 0px;">
@@ -793,6 +842,14 @@
 					<div class="explorer-sidebar explorer-sidebar-right explorer-sidebar-right-querytoolkit" style="display: none">
 						<div class="row" style="margin:0px">
 							<span class="text-center side-nav-head-font"><strong>Query Toolkit</strong></span>
+						</div>
+						<div class="row" style="margin:0px">
+							<span class="text-center side-nav-head-font">Target</span>
+						</div>
+						<div class="row" style="margin:0px">
+							<select name="query-target-select-option" id="query-target-select-option" onchange="querychangetarget()">
+								
+							</select>
 						</div>
 						<div class="row" style="margin:0px">
 							<span class="text-center side-nav-head-font">Type</span>
