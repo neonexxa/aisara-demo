@@ -643,6 +643,7 @@ function handleChangecomboquery() {
 	        function craftthegraphbt(filtered_data,param,paramresult,trace_filter) {
 	        	console.log("clearing out plot div");
 	        	// $("#plotly-div").empty();
+                console.log(filtered_data);
 	        	var validation_data = JSON.parse(filtered_data);
 		        console.log("param validation here",validation_data.scatter_training.x)
 	            var trace1 = {

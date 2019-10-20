@@ -515,7 +515,7 @@ function processdataajax(datamethod,project_id,plugin_id) {
           type: "GET",
           url: centrica_domain+"/api/getprojectfiles/"+project_id+"/"+plugin_id+"/bs",
           dataType: "text",
-          success: (data)=> {jsonrespond = JSON.parse(data);craftthegraphbt(jsonrespond.data,0,0);$('#exportvalidationbutton').show();}//
+          success: (data)=> {jsonrespond = JSON.parse(data);craftthegraphbt(jsonrespond.data[target_name],0,0);$('#exportvalidationbutton').show();}//
         });
       break;
     }
